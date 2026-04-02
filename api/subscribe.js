@@ -6,9 +6,9 @@ export default async function handler(req, res) {
   if (!email || !email.includes('@')) {
     return res.status(400).json({ error: 'Invalid email' })
   }
-  const API_KEY = process.env.VITE_MAILCHIMP_API_KEY
-  const AUDIENCE_ID = process.env.VITE_MAILCHIMP_AUDIENCE_ID
-  const SERVER = process.env.VITE_MAILCHIMP_SERVER
+  const API_KEY = process.env.MAILCHIMP_API_KEY
+  const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID
+  const SERVER = process.env.MAILCHIMP_SERVER
   const url = `https://${SERVER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`
   try {
     const response = await fetch(url, {
