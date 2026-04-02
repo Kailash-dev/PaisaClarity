@@ -20,11 +20,29 @@ export default function App() {
   const [wlCount, setWlCount] = useState(1247)
   const emailRef = useRef(null)
 
-  const handleJoin = (email) => {
-    setWlCount(c => c + 1)
-    showToast('🎉 You\'re on the waitlist!')
-    // TODO: Connect to Mailchimp / Supabase here
-    console.log('New signup:', email)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const handleJoin = async (email) => {
+    if (isSubmitting) return
+    setIsSubmitting(true)
+    try {
+      const res = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      const data = await res.json()
+      if (data.success) {
+        setWlCount(c => c + 1)
+        showToast(data.existing ? '👋 You are already on the list!' : '🎉 You are on the waitlist!')
+      } else {
+        showToast('Something went wrong. Please try again.')
+      }
+    } catch (err) {
+      showToast('Something went wrong. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const scrollToEmail = () => {
@@ -47,6 +65,7 @@ export default function App() {
         wlCount={wlCount}
         onJoin={handleJoin}
         emailRef={emailRef}
+        isSubmitting={isSubmitting}
       />
       <Ticker />
       <Problem t={t} />
@@ -54,7 +73,7 @@ export default function App() {
       <Quiz t={t} onJoinClick={scrollToEmail} />
       <HowItWorks t={t} />
       <Share t={t} showToast={showToast} />
-      <FinalCTA t={t} wlCount={wlCount} onJoin={handleJoin} />
+      <FinalCTA t={t} wlCount={wlCount} onJoin={handleJoin} isSubmitting={isSubmitting} />
       <Toast msg={toast.msg} show={toast.show} />
     </>
   )

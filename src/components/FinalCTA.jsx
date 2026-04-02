@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import styles from './FinalCTA.module.css'
 
-export default function FinalCTA({ t, wlCount, onJoin }) {
+export default function FinalCTA({ t, wlCount, onJoin, isSubmitting }) {
   const [email, setEmail] = useState('')
   const [success, setSuccess] = useState(false)
 
@@ -31,7 +31,7 @@ export default function FinalCTA({ t, wlCount, onJoin }) {
               placeholder={t.heroInput}
               className={styles.input}
             />
-            <button onClick={handleJoin} className={styles.btn}>{t.finalBtn}</button>
+            <button onClick={handleJoin} className={styles.btn} disabled={isSubmitting}>{isSubmitting ? 'Joining...' : t.finalBtn}</button>
           </div>
           {success && <p className={styles.success}>{t.successMsg}</p>}
           <p className={styles.meta}>{t.finalMeta}</p>

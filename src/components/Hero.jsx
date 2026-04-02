@@ -8,7 +8,7 @@ const AVATARS = [
   { letter: 'P', color: '#F59E0B' },
 ]
 
-export default function Hero({ t, wlCount, onJoin, emailRef }) {
+export default function Hero({ t, wlCount, onJoin, emailRef, isSubmitting }) {
   const [email, setEmail] = useState('')
   const [success, setSuccess] = useState(false)
 
@@ -44,7 +44,7 @@ export default function Hero({ t, wlCount, onJoin, emailRef }) {
           placeholder={t.heroInput}
           className={styles.input}
         />
-        <button onClick={handleJoin} className={styles.btn}>{t.heroBtn}</button>
+        <button onClick={handleJoin} className={styles.btn} disabled={isSubmitting}>{isSubmitting ? 'Joining...' : t.heroBtn}</button>
       </div>
 
       {success && <p className={styles.success}>{t.successMsg}</p>}
