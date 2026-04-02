@@ -10,6 +10,12 @@ export default async function handler(req, res) {
   const AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID
   const SERVER = process.env.MAILCHIMP_SERVER
   const url = `https://${SERVER}.api.mailchimp.com/3.0/lists/${AUDIENCE_ID}/members`
+
+  console.log("ENV CHECK:", {
+    API_KEY: process.env.MAILCHIMP_API_KEY,
+    AUDIENCE_ID: process.env.MAILCHIMP_AUDIENCE_ID,
+    SERVER: process.env.MAILCHIMP_SERVER,
+  })
   try {
     const response = await fetch(url, {
       method: 'POST',
