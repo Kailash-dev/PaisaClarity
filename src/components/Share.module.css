@@ -1,0 +1,19 @@
+.section { background: var(--green-light); padding: 100px 24px; }
+[data-theme="dark"] .section { background: #0D2B1E; }
+.inner { max-width: 620px; margin: 0 auto; text-align: center; }
+.label { font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green-dark); margin-bottom: 16px; font-family: var(--font-heading); }
+.title { font-family: var(--font-heading); font-size: clamp(28px, 4vw, 48px); font-weight: 800; letter-spacing: -1.5px; color: var(--text-primary); margin-bottom: 12px; line-height: 1.1; }
+.sub { font-size: 16px; color: var(--text-secondary); margin-bottom: 36px; }
+.btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 36px; }
+.btn { display: flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 28px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; font-family: var(--font-heading); color: #fff; transition: var(--transition); letter-spacing: -0.2px; }
+.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.wa { background: #25D366; }
+.tw { background: #000; }
+.li { background: #0A66C2; }
+.refBox { background: var(--card-bg); border-radius: 20px; padding: 32px; border: 1px solid rgba(0,195,123,0.2); }
+.refLabel { font-size: 14px; color: var(--text-secondary); margin-bottom: 8px; }
+.refCode { font-family: var(--font-heading); font-size: 32px; font-weight: 800; color: var(--green-dark); letter-spacing: 4px; margin-bottom: 16px; }
+.copyBtn { background: #0D0D0D; color: #fff; border: none; padding: 11px 24px; border-radius: 24px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: var(--font-heading); transition: var(--transition); }
+[data-theme="dark"] .copyBtn { background: #fff; color: #0D0D0D; }
+.copyBtn.copied { background: var(--green); }
+.refSub { font-size: 13px; color: var(--text-muted); margin-top: 16px; line-height: 1.5; }

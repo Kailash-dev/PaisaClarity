@@ -1,0 +1,18 @@
+.section { padding: 100px 24px; background: var(--bg-primary); }
+.inner { max-width: 1100px; margin: 0 auto; }
+.label { font-size: 12px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--green); margin-bottom: 16px; font-family: var(--font-heading); }
+.title { font-family: var(--font-heading); font-size: clamp(30px, 4vw, 52px); font-weight: 800; letter-spacing: -1.5px; margin-bottom: 64px; color: var(--text-primary); line-height: 1.1; }
+.steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; position: relative; }
+.step { padding: 0 40px 0 0; position: relative; }
+.step:last-child { padding-right: 0; }
+.step:last-child .connector { display: none; }
+.num { font-family: var(--font-heading); font-size: 72px; font-weight: 800; color: var(--green-light); line-height: 1; margin-bottom: 20px; letter-spacing: -3px; }
+[data-theme="dark"] .num { color: #0D2B1E; }
+.connector { position: absolute; top: 36px; right: 0; width: 32px; height: 2px; background: var(--border); }
+.step h3 { font-family: var(--font-heading); font-size: 19px; font-weight: 700; margin-bottom: 12px; color: var(--text-primary); letter-spacing: -0.3px; }
+.step p { font-size: 15px; color: var(--text-secondary); line-height: 1.65; }
+@media (max-width: 768px) {
+  .steps { grid-template-columns: 1fr; gap: 48px; }
+  .connector { display: none; }
+  .step { padding: 0; }
+}

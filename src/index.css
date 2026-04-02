@@ -1,0 +1,92 @@
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Light theme */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F7F7F5;
+  --bg-tertiary: #EFEFEB;
+  --bg-dark: #0D0D0D;
+  --bg-dark2: #1A1A1A;
+  --bg-dark3: #2A2A2A;
+
+  --text-primary: #0D0D0D;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+  --text-inverse: #FFFFFF;
+
+  --border: #E5E5E0;
+  --border-light: #F0F0EB;
+
+  --green: #00C37B;
+  --green-dark: #009A5E;
+  --green-light: #E6FBF2;
+  --green-mid: #D0F5E8;
+
+  --orange: #FF6B35;
+  --orange-light: #FFF0EB;
+
+  --nav-bg: rgba(255,255,255,0.92);
+  --card-bg: #FFFFFF;
+  --card-border: #E5E5E0;
+  --input-bg: #FFFFFF;
+  --input-border: #E5E5E0;
+
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+
+  --transition: all 0.25s ease;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #0D0D0D;
+  --bg-secondary: #161616;
+  --bg-tertiary: #1E1E1E;
+  --bg-dark: #F5F5F3;
+  --bg-dark2: #E5E5E0;
+  --bg-dark3: #D0D0CB;
+
+  --text-primary: #F5F5F3;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+  --text-inverse: #0D0D0D;
+
+  --border: #2A2A2A;
+  --border-light: #222222;
+
+  --green-light: #0D2B1E;
+  --green-mid: #112A1C;
+
+  --orange-light: #2A1508;
+
+  --nav-bg: rgba(13,13,13,0.92);
+  --card-bg: #161616;
+  --card-border: #2A2A2A;
+  --input-bg: #1A1A1A;
+  --input-border: #333333;
+
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
