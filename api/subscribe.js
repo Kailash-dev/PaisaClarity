@@ -39,6 +39,11 @@ export default async function handler(req, res) {
     }
     return res.status(400).json({ error: data.detail || 'Signup failed' })
   } catch (err) {
-    return res.status(500).json({ error: 'Server error' })
-  }
+  console.error("FULL ERROR:", err)
+
+  return res.status(500).json({
+    error: err.message,
+    details: err.response?.data || null
+  })
+}
 }
