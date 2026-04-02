@@ -31,12 +31,12 @@ export default function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       })
-      const data = await res.json()
-      if (data.success) {
+      const data = await res.json().catch(() => ({}))
+      if (res.ok && data.success) {
         setWlCount(c => c + 1)
         showToast(data.existing ? '👋 You are already on the list!' : '🎉 You are on the waitlist!')
       } else {
-        showToast('Something went wrong. Please try again.')
+        showToast(data.error || 'Something went wrong. Please try again.')
       }
     } catch (err) {
       showToast('Something went wrong. Please try again.')

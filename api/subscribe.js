@@ -48,26 +48,76 @@
 // }
 // }
 
-
-
 import { Resend } from 'resend'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+function readRequestBody(req) {
+  return new Promise((resolve, reject) => {
+    let body = ''
+    req.on('data', (chunk) => {
+      body += chunk
+    })
+    req.on('end', () => resolve(body))
+    req.on('error', reject)
+  })
+}
+
+async function getJsonBody(req) {
+  if (typeof Buffer !== 'undefined' && Buffer.isBuffer?.(req.body)) {
+    try {
+      return JSON.parse(req.body.toString('utf8'))
+    } catch {
+      return null
+    }
+  }
+
+  if (req.body && typeof req.body === 'object') return req.body
+  if (typeof req.body === 'string') {
+    try {
+      return JSON.parse(req.body)
+    } catch {
+      return null
+    }
+  }
+
+  const raw = await readRequestBody(req)
+  if (!raw) return {}
+  try {
+    return JSON.parse(raw)
+  } catch {
+    return null
+  }
+}
 
 export default async function handler(req, res) {
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end()
+  }
+
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
 
   try {
-    const { email } = req.body || {}
+    const body = await getJsonBody(req)
+    if (body === null) {
+      return res.status(400).json({ error: 'Invalid JSON body' })
+    }
+
+    const { email } = body || {}
 
     if (!email || !email.includes('@')) {
       return res.status(400).json({ error: 'Invalid email' })
     }
 
+    const apiKey = process.env.RESEND_API_KEY
+    if (!apiKey) {
+      return res.status(500).json({ error: 'Missing RESEND_API_KEY env var' })
+    }
+
+    const resend = new Resend(apiKey)
+
     // Send email instantly
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: 'onboarding@resend.dev', // default (works instantly)
       to: email,
       subject: 'You’re on the Paisa Clarity waitlist 🚀',
@@ -80,7 +130,15 @@ export default async function handler(req, res) {
       `,
     })
 
-    return res.status(200).json({ success: true })
+    if (error) {
+      console.error('RESEND ERROR:', error)
+      return res.status(error.statusCode || 502).json({
+        success: false,
+        error: error.message || 'Failed to send email',
+      })
+    }
+
+    return res.status(200).json({ success: true, id: data?.id || null })
 
   } catch (err) {
     console.error("RESEND ERROR:", err)

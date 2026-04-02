@@ -31,12 +31,15 @@ npm run build
 3. Vercel auto-detects Vite — just click Deploy
 4. Done! Live URL in ~60 seconds ✅
 
-## Connect Email Capture (TODO)
+## Email Capture
 
-In `src/App.jsx`, find the `handleJoin` function and connect to:
-- **Mailchimp** — free up to 500 contacts
-- **Supabase** — free Postgres DB for storing emails
-- **Resend** — for sending confirmation emails
+The site posts to `POST /api/subscribe` (Vercel Function) to send a confirmation email via Resend.
+
+Required env vars on Vercel:
+- `RESEND_API_KEY`
+
+Notes:
+- If your Resend account is in sandbox mode, Resend may reject sending to unverified recipients; the API will return an error message you can see in the UI toast.
 
 ## SEO
 - Meta tags in `index.html`
